@@ -24,6 +24,9 @@ export class RealtimeBridge {
     this.activeResponse = false;
     this.handledCalls = new Set();
     this.responseText = new Map();
+    // Guards the auto-continue that makes the model speak after a tool-only
+    // turn, so a misbehaving model can't loop forever.
+    this.autoContinueCount = 0;
     this.context = null;
     this.options = {};
     this.closed = false;
@@ -101,6 +104,7 @@ export class RealtimeBridge {
   sendUserText(text) {
     const value = String(text || "").trim();
     if (!value) return;
+    this.autoContinueCount = 0;
     this.sendUpstream({
       type: "conversation.item.create",
       item: {
@@ -113,6 +117,7 @@ export class RealtimeBridge {
   }
 
   beginUserAudio() {
+    this.autoContinueCount = 0;
     if (this.activeResponse) this.sendUpstream({ type: "response.cancel" });
     this.sendUpstream({ type: "input_audio_buffer.clear" });
   }
@@ -293,11 +298,26 @@ export class RealtimeBridge {
     const output = response?.output;
     if (!Array.isArray(output)) return;
 
+    let toolHandled = false;
+    let hadSpokenMessage = false;
     for (const item of output) {
+      if (item?.type === "message") hadSpokenMessage = true;
       if (item?.type !== "function_call") continue;
       if (this.handledCalls.has(item.call_id)) continue;
       this.handledCalls.add(item.call_id);
       this.handleToolCall(item);
+      toolHandled = true;
+    }
+
+    // The coaching tools are silent telemetry and carry no verbal reply. If the
+    // model packaged its whole turn as tool call(s) with no spoken message, the
+    // character would go silent — so ask it to actually respond in character
+    // now. Guarded so a model that keeps emitting only tools can't loop.
+    if (hadSpokenMessage) {
+      this.autoContinueCount = 0;
+    } else if (toolHandled && this.autoContinueCount < 2) {
+      this.autoContinueCount += 1;
+      this.sendUpstream({ type: "response.create" });
     }
   }
 
