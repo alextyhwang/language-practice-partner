@@ -27,6 +27,7 @@ export interface NpcCharacter {
   role: string;
   emoji: string;
   sprite: SpriteType;
+  imageSrc?: string;
   scene: SceneType;
   /** @deprecated use sprite/scene instead */
   frameFrom: string;
@@ -34,6 +35,16 @@ export interface NpcCharacter {
   frameTo: string;
   /** @deprecated use sprite/scene instead */
   accent: string;
+}
+
+/** Maps a presentation scenario to the backend coaching session config. */
+export interface BackendSessionConfig {
+  /** Backend scenario id (see backend/src/coaching/scenarios.js). */
+  scenario: string;
+  /** Backend language id (see backend/src/coaching/languages.js). */
+  language: string;
+  /** Backend CEFR level id (A1–C1). */
+  level: string;
 }
 
 export interface Scenario {
@@ -49,13 +60,8 @@ export interface Scenario {
   /** Stars earned out of 3 (mock) */
   starsEarned: number;
   difficulty: "easy" | "medium" | "hard";
-}
-
-export interface ScenarioScript {
-  initialTranscript: TranscriptTurn[];
-  mockCorrections: Correction[];
-  scriptedPartnerLines: { text: string; translation: string; delayMs: number }[];
-  scriptedUserLines: { text: string; translation: string; correction?: Correction }[];
+  /** Backend realtime session config this mission maps to. */
+  backend: BackendSessionConfig;
 }
 
 export interface TranscriptTurn {

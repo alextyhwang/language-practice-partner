@@ -10,6 +10,8 @@ export type SpriteType =
 
 interface Props {
   type: SpriteType;
+  imageSrc?: string;
+  imageAlt?: string;
   mood?: NpcMood;
   speaking?: boolean;
   facing?: "left" | "right";
@@ -93,23 +95,36 @@ function SpriteSvg({
 
 export function PixelSprite({
   type,
+  imageSrc,
+  imageAlt,
   mood = "neutral",
   speaking = false,
   facing = "right",
   scale = 1,
   label,
 }: Props) {
+  const shouldFlip = facing === "left" && !imageSrc;
+
   return (
     <div
       className={`flex flex-col items-center ${speaking ? "animate-sprite-bob" : ""}`}
       style={{
-        transform: `${facing === "left" ? "scaleX(-1)" : ""} scale(${scale})`,
+        transform: `${shouldFlip ? "scaleX(-1)" : ""} scale(${scale})`,
         transformOrigin: "bottom center",
       }}
     >
-      <SpriteSvg type={type} mood={mood} speaking={speaking} />
+      {imageSrc ? (
+        <img
+          src={imageSrc}
+          alt={imageAlt ?? label ?? `${type} character`}
+          className="h-28 w-20 object-contain drop-shadow-[0_4px_0_rgba(0,0,0,0.35)]"
+          draggable={false}
+        />
+      ) : (
+        <SpriteSvg type={type} mood={mood} speaking={speaking} />
+      )}
       {label && (
-        <span className="mt-1 font-pixel-xs text-cream" style={{ transform: facing === "left" ? "scaleX(-1)" : undefined }}>
+        <span className="mt-1 font-pixel-xs text-cream" style={{ transform: shouldFlip ? "scaleX(-1)" : undefined }}>
           {label}
         </span>
       )}

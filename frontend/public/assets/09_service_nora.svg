@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 300" width="200" height="300">
+  <title>Nora - customer service rep, explaining a problem</title>
+  <ellipse cx="100" cy="294" rx="42" ry="7" fill="#00000025"/>
+  <rect x="56" y="248" width="30" height="38" rx="10" fill="#37474F"/>
+  <rect x="114" y="248" width="30" height="38" rx="10" fill="#37474F"/>
+  <rect x="50" y="262" width="42" height="20" rx="10" fill="#212121"/>
+  <rect x="108" y="262" width="42" height="20" rx="10" fill="#212121"/>
+  <rect x="38" y="148" width="124" height="108" rx="26" fill="#1565C0"/>
+  <rect x="74" y="148" width="52" height="108" rx="6" fill="#1E88E5"/>
+  <polygon points="86,148 100,168 114,148" fill="#FFFFFF"/>
+  <circle cx="58" cy="170" r="9" fill="#FFFFFF"/>
+  <text x="58" y="174" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="900" fill="#1565C0">N</text>
+  <rect x="8" y="156" width="34" height="22" rx="11" fill="#1565C0"/>
+  <rect x="158" y="156" width="34" height="22" rx="11" fill="#1565C0"/>
+  <ellipse cx="16" cy="180" rx="13" ry="11" fill="#FFCC80"/>
+  <ellipse cx="184" cy="180" rx="13" ry="11" fill="#FFCC80"/>
+  <ellipse cx="100" cy="148" rx="34" ry="17" fill="#FFCC80"/>
+  <ellipse cx="100" cy="104" rx="50" ry="48" fill="#FFCC80"/>
+  <path d="M50 100 Q48 56 100 54 Q152 56 150 100 Q148 76 128 74 L130 110 Q124 86 100 84 Q76 86 70 110 L72 74 Q52 76 50 100" fill="#3E2723"/>
+  <path d="M46 100 Q44 130 50 150 L62 146 Q56 124 58 104 Z" fill="#3E2723"/>
+  <path d="M154 100 Q156 130 150 150 L138 146 Q144 124 142 104 Z" fill="#3E2723"/>
+  <path d="M44 102 Q40 110 44 122" stroke="#212121" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <ellipse cx="44" cy="124" rx="7" ry="9" fill="#212121"/>
+  <ellipse cx="44" cy="124" rx="4" ry="6" fill="#424242"/>
+  <circle cx="84" cy="110" r="8" fill="#1A1A1A"/>
+  <circle cx="116" cy="110" r="8" fill="#1A1A1A"/>
+  <circle cx="87" cy="107" r="3" fill="white"/>
+  <circle cx="119" cy="107" r="3" fill="white"/>
+  <path d="M76 102 Q84 98 92 102" stroke="#3E2723" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M108 102 Q116 98 124 102" stroke="#3E2723" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <ellipse cx="70" cy="124" rx="10" ry="6" fill="#FFAB91" opacity="0.6"/>
+  <ellipse cx="130" cy="124" rx="10" ry="6" fill="#FFAB91" opacity="0.6"/>
+  <path d="M86 128 Q100 138 114 128" stroke="#8D6E63" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <text x="100" y="299" text-anchor="middle" font-family="Arial Rounded MT Bold,Arial,sans-serif" font-size="13" font-weight="700" fill="#1565C0">Nora · Support</text>
+</svg>

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 300" width="200" height="300">
+  <title>Marco - waiter, ordering food</title>
+  <ellipse cx="100" cy="294" rx="42" ry="7" fill="#00000025"/>
+  <rect x="54" y="248" width="34" height="38" rx="10" fill="#212121"/>
+  <rect x="112" y="248" width="34" height="38" rx="10" fill="#212121"/>
+  <rect x="48" y="262" width="44" height="22" rx="11" fill="#1A1A1A"/>
+  <rect x="108" y="262" width="44" height="22" rx="11" fill="#1A1A1A"/>
+  <rect x="36" y="148" width="128" height="108" rx="26" fill="#FAFAFA"/>
+  <rect x="36" y="148" width="128" height="58" rx="26" fill="#263238"/>
+  <rect x="36" y="190" width="128" height="20" fill="#263238"/>
+  <polygon points="80,148 100,170 120,148" fill="#FAFAFA"/>
+  <polygon points="92,150 100,162 108,150" fill="#B71C1C"/>
+  <rect x="46" y="206" width="108" height="50" rx="6" fill="#FFFFFF"/>
+  <rect x="46" y="206" width="108" height="8" fill="#ECEFF1"/>
+  <rect x="5" y="152" width="38" height="24" rx="12" fill="#263238"/>
+  <rect x="157" y="120" width="38" height="24" rx="12" fill="#263238" transform="rotate(-30 176 132)"/>
+  <ellipse cx="14" cy="180" rx="14" ry="12" fill="#FFE0B2"/>
+  <ellipse cx="186" cy="110" rx="20" ry="8" fill="#CFD8DC"/>
+  <ellipse cx="186" cy="106" rx="20" ry="6" fill="#ECEFF1"/>
+  <circle cx="178" cy="104" r="4" fill="#FF7043"/>
+  <circle cx="190" cy="103" r="4" fill="#66BB6A"/>
+  <ellipse cx="100" cy="148" rx="34" ry="17" fill="#FFE0B2"/>
+  <ellipse cx="100" cy="106" rx="50" ry="48" fill="#FFE0B2"/>
+  <path d="M52 96 Q54 60 100 58 Q146 60 148 96 Q140 78 100 76 Q60 78 52 96" fill="#3E2723"/>
+  <circle cx="83" cy="110" r="8" fill="#1A1A1A"/>
+  <circle cx="117" cy="110" r="8" fill="#1A1A1A"/>
+  <circle cx="86" cy="107" r="3" fill="white"/>
+  <circle cx="120" cy="107" r="3" fill="white"/>
+  <ellipse cx="70" cy="124" rx="10" ry="6" fill="#FFAB91" opacity="0.6"/>
+  <ellipse cx="130" cy="124" rx="10" ry="6" fill="#FFAB91" opacity="0.6"/>
+  <path d="M84 128 Q100 142 116 128" stroke="#8D6E63" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M88 130 Q100 139 112 130" fill="white"/>
+  <path d="M100 76 L100 64 Q108 62 112 68" stroke="#3E2723" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <text x="100" y="299" text-anchor="middle" font-family="Arial Rounded MT Bold,Arial,sans-serif" font-size="14" font-weight="700" fill="#263238">Marco · Waiter</text>
+</svg>

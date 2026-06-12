@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 300" width="200" height="300">
+  <title>Theo - party guest, small talk</title>
+  <ellipse cx="100" cy="294" rx="42" ry="7" fill="#00000025"/>
+  <rect x="54" y="248" width="34" height="38" rx="10" fill="#37474F"/>
+  <rect x="112" y="248" width="34" height="38" rx="10" fill="#37474F"/>
+  <rect x="48" y="262" width="44" height="22" rx="11" fill="#FFFFFF"/>
+  <rect x="108" y="262" width="44" height="22" rx="11" fill="#FFFFFF"/>
+  <rect x="38" y="148" width="124" height="108" rx="26" fill="#6A1B9A"/>
+  <rect x="74" y="148" width="52" height="108" rx="6" fill="#8E24AA"/>
+  <polygon points="86,148 100,170 114,148" fill="#FFFFFF"/>
+  <circle cx="100" cy="186" r="5" fill="#FFD54F"/>
+  <circle cx="100" cy="206" r="5" fill="#FFD54F"/>
+  <rect x="6" y="152" width="38" height="24" rx="12" fill="#6A1B9A"/>
+  <rect x="150" y="118" width="38" height="24" rx="12" fill="#6A1B9A" transform="rotate(-32 169 130)"/>
+  <ellipse cx="14" cy="180" rx="14" ry="12" fill="#D7A06A"/>
+  <g transform="translate(180,98) rotate(-15)">
+    <ellipse cx="0" cy="0" rx="13" ry="11" fill="#D7A06A"/>
+    <path d="M-10 -2 L10 -2 L7 -22 L-7 -22 Z" fill="#B3E5FC" opacity="0.85"/>
+    <ellipse cx="0" cy="-22" rx="7" ry="2.5" fill="#FFF59D"/>
+    <rect x="-1" y="-2" width="2" height="10" fill="#90A4AE"/>
+  </g>
+  <ellipse cx="100" cy="148" rx="34" ry="17" fill="#D7A06A"/>
+  <ellipse cx="100" cy="106" rx="50" ry="48" fill="#D7A06A"/>
+  <path d="M52 94 Q56 58 100 56 Q144 58 148 94 Q150 72 124 72 Q140 84 116 82 Q110 72 100 72 Q90 72 84 82 Q60 84 76 72 Q50 72 52 94" fill="#212121"/>
+  <circle cx="83" cy="110" r="8" fill="#1A1A1A"/>
+  <circle cx="117" cy="110" r="8" fill="#1A1A1A"/>
+  <circle cx="86" cy="107" r="3" fill="white"/>
+  <circle cx="120" cy="107" r="3" fill="white"/>
+  <path d="M75 100 Q83 96 91 100" stroke="#212121" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M109 100 Q117 96 125 100" stroke="#212121" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <ellipse cx="70" cy="124" rx="10" ry="6" fill="#C97E54" opacity="0.6"/>
+  <ellipse cx="130" cy="124" rx="10" ry="6" fill="#C97E54" opacity="0.6"/>
+  <path d="M84 128 Q100 144 116 128" stroke="#8D2C2C" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M88 130 Q100 140 112 130" fill="white"/>
+  <text x="100" y="299" text-anchor="middle" font-family="Arial Rounded MT Bold,Arial,sans-serif" font-size="14" font-weight="700" fill="#6A1B9A">Theo · Guest</text>
+</svg>

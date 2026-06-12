@@ -79,10 +79,12 @@ export function CharacterStage({
           )}
           <PixelSprite
             type={npc.sprite}
+            imageSrc={npc.imageSrc}
+            imageAlt={`${npc.name} - ${npc.role}`}
             mood={mood}
             speaking={partnerSpeaking}
             facing="left"
-            label={npc.nameChinese}
+            label={npc.name}
           />
         </div>
       </SceneBackground>

@@ -7,6 +7,8 @@ type AppView = "select" | "session";
 export default function App() {
   const [view, setView] = useState<AppView>("select");
   const [activeScenarioId, setActiveScenarioId] = useState<string | null>(null);
+  // Target language (backend language id) chosen on the mission screen.
+  const [language, setLanguage] = useState("zh");
 
   const startMission = (scenarioId: string) => {
     setActiveScenarioId(scenarioId);
@@ -19,8 +21,14 @@ export default function App() {
   };
 
   if (view === "session" && activeScenarioId) {
-    return <LiveSession scenarioId={activeScenarioId} onExit={exitMission} />;
+    return <LiveSession scenarioId={activeScenarioId} language={language} onExit={exitMission} />;
   }
 
-  return <MissionSelect onSelectScenario={startMission} />;
+  return (
+    <MissionSelect
+      onSelectScenario={startMission}
+      language={language}
+      onLanguageChange={setLanguage}
+    />
+  );
 }

@@ -1,4 +1,4 @@
-import { useSession } from "../hooks/useSession";
+import { useRealtimeSession } from "../hooks/useRealtimeSession";
 import type { CoachingMode } from "../types";
 import { CharacterStage } from "../components/CharacterStage";
 import { CoachTipPopup } from "../components/CoachTipPopup";
@@ -12,11 +12,12 @@ import { SessionHeader } from "../components/SessionHeader";
 interface Props {
   scenarioId: string;
   coachingMode?: CoachingMode;
+  language?: string;
   onExit: () => void;
 }
 
-export function LiveSession({ scenarioId, coachingMode = "friendly", onExit }: Props) {
-  const session = useSession({ scenarioId, coachingMode });
+export function LiveSession({ scenarioId, coachingMode = "friendly", language, onExit }: Props) {
+  const session = useRealtimeSession({ scenarioId, coachingMode, language });
 
   return (
     <div className="snes-crt game-bg game-bg-night relative mx-auto flex h-full max-w-lg flex-col overflow-hidden">
@@ -66,7 +67,7 @@ export function LiveSession({ scenarioId, coachingMode = "friendly", onExit }: P
       {/* JRPG dialogue box — NOT chat bubbles */}
       <DialogueBox
         speakerName={
-          session.currentLine?.speaker === "user" ? "You" : session.scenario.npc.nameChinese
+          session.currentLine?.speaker === "user" ? "You" : session.scenario.npc.name
         }
         speakerLabel={
           session.currentLine?.speaker === "user" ? "YOU" : session.scenario.npc.role
@@ -78,7 +79,7 @@ export function LiveSession({ scenarioId, coachingMode = "friendly", onExit }: P
         isEmpty={!session.currentLine}
       />
 
-      <DialogueLog transcript={session.transcript} npcName={session.scenario.npc.nameChinese} />
+      <DialogueLog transcript={session.transcript} npcName={session.scenario.npc.name} />
 
       <GameActionBar
         isMicActive={session.isMicActive}
