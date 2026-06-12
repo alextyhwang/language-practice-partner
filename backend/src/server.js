@@ -9,6 +9,7 @@ import { WebSocketServer } from "ws";
 
 import { config, hasApiKey, isOriginAllowed } from "./config.js";
 import { catalogRouter } from "./routes/catalog.js";
+import { translateRouter } from "./routes/translate.js";
 import { RealtimeBridge } from "./realtime/bridge.js";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -35,6 +36,7 @@ app.get("/health", (_req, res) => {
 });
 
 app.use("/api", catalogRouter);
+app.use("/api", translateRouter);
 app.use(express.static(publicDir));
 
 // Realtime coaching socket. The browser connects here; the bridge owns the

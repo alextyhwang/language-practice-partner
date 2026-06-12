@@ -18,6 +18,7 @@ const PCM_RATE = 24000;
 
 let ws;
 let currentAssistant;
+let assistantMessagesByResponse = new Map();
 let inputContext;
 let processor;
 let source;
@@ -79,6 +80,7 @@ function startSession() {
   els.transcript.innerHTML = "";
   els.corrections.innerHTML = "";
   els.scores.innerHTML = "";
+  assistantMessagesByResponse = new Map();
 
   const protocol = window.location.protocol === "https:" ? "wss" : "ws";
   ws = new WebSocket(`${protocol}://${window.location.host}/realtime`);
@@ -133,19 +135,26 @@ function handleServerEvent(message) {
     case "lpp.goal":
       renderGoal(event.goal);
       return;
+    case "lpp.translation":
+      renderTranslation(event.translation);
+      return;
+    case "lpp.translation.error":
+      appendMessage("assistant", `[translation unavailable] ${event.message}`);
+      return;
     case "error":
       appendMessage("assistant", event.error?.message || "Realtime API error.");
       return;
     case "response.created":
       currentAssistant ||= appendMessage("assistant", "");
+      if (event.response?.id) assistantMessagesByResponse.set(event.response.id, currentAssistant);
       return;
     case "response.output_text.delta":
-      currentAssistant ||= appendMessage("assistant", "");
+      currentAssistant = getAssistantMessage(event.response_id);
       currentAssistant.textContent += event.delta || "";
       scrollTranscript();
       return;
     case "response.output_audio_transcript.delta":
-      currentAssistant ||= appendMessage("assistant", "");
+      currentAssistant = getAssistantMessage(event.response_id);
       currentAssistant.textContent += event.delta || "";
       scrollTranscript();
       return;
@@ -216,6 +225,17 @@ function renderScore(s) {
   els.scores.prepend(card);
 }
 
+function renderTranslation(t) {
+  const target = assistantMessagesByResponse.get(t.responseId);
+  if (!target || !t.text) return;
+
+  const subtitle = document.createElement("div");
+  subtitle.className = "translation";
+  subtitle.textContent = t.text;
+  target.append(subtitle);
+  scrollTranscript();
+}
+
 // ---- Microphone (push-to-talk) ---------------------------------------------
 
 async function startRecording() {
@@ -280,6 +300,16 @@ function appendMessage(role, text) {
   els.transcript.append(article);
   scrollTranscript();
   return article;
+}
+
+function getAssistantMessage(responseId) {
+  if (responseId && assistantMessagesByResponse.has(responseId)) {
+    return assistantMessagesByResponse.get(responseId);
+  }
+
+  currentAssistant ||= appendMessage("assistant", "");
+  if (responseId) assistantMessagesByResponse.set(responseId, currentAssistant);
+  return currentAssistant;
 }
 
 function scrollTranscript() {
