@@ -1,0 +1,528 @@
+@import "tailwindcss";
+
+@theme {
+  --font-pixel: "Press Start 2P", monospace;
+  --font-rpg: "VT323", monospace;
+  --font-body: "VT323", "Noto Sans SC", monospace;
+
+  /* Chrono Trigger / SNES palette */
+  --color-night: #0a0a2a;
+  --color-night-mid: #1a1a4e;
+  --color-night-light: #2a2a6e;
+  --color-forest: #0d3320;
+  --color-forest-mid: #1a5c3a;
+  --color-fire: #ff9933;
+  --color-fire-bright: #ffcc00;
+  --color-fire-glow: #ff6600;
+  --color-dialogue: #2060c0;
+  --color-dialogue-dark: #1040a0;
+  --color-dialogue-light: #3080e0;
+  --color-cream: #fff8e7;
+  --color-cream-dim: #d4c4a8;
+  --color-white-border: #ffffff;
+  --color-shadow: #000000;
+
+  --color-ink: #fff8e7;
+  --color-ink-muted: #b8a888;
+  --color-ink-faint: #807060;
+
+  --color-surface: #1a1a4e;
+  --color-surface-raised: #2a2a6e;
+  --color-surface-sunken: #0a0a2a;
+
+  --color-primary: #ff9933;
+  --color-primary-dark: #cc6600;
+  --color-accent: #44cc66;
+  --color-accent-dark: #228844;
+  --color-sky: #3080e0;
+  --color-sky-dark: #1040a0;
+  --color-amber: #ffcc00;
+  --color-amber-dark: #cc9900;
+
+  --color-correction-pronunciation: #ff6666;
+  --color-correction-grammar: #ffcc00;
+  --color-correction-vocabulary: #66aaff;
+  --color-correction-fluency: #cc88ff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 18px;
+  color: var(--color-cream);
+  background: var(--color-night);
+  -webkit-font-smoothing: none;
+  image-rendering: pixelated;
+}
+
+/* ── SNES scanline overlay ── */
+.snes-crt::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.06) 2px,
+    rgba(0, 0, 0, 0.06) 4px
+  );
+}
+
+/* ── Game shell backgrounds ── */
+.game-bg {
+  background: var(--color-night);
+  position: relative;
+}
+
+.game-bg-night {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(42, 42, 110, 0.6) 0%, transparent 60%),
+    linear-gradient(180deg, #0a0a2a 0%, #1a1a4e 50%, #0a0a2a 100%);
+}
+
+/* ── SNES menu panels (sharp corners, pixel borders) ── */
+.snes-panel {
+  background: var(--color-dialogue-dark);
+  border: 3px solid var(--color-white-border);
+  box-shadow:
+    inset 0 0 0 1px var(--color-dialogue-light),
+    4px 4px 0 rgba(0, 0, 0, 0.5);
+}
+
+.snes-panel-dark {
+  background: var(--color-night-mid);
+  border: 3px solid var(--color-cream-dim);
+  box-shadow:
+    inset 0 0 0 1px var(--color-night-light),
+    3px 3px 0 rgba(0, 0, 0, 0.6);
+}
+
+.snes-panel-quest {
+  background: linear-gradient(180deg, #1a3a1a 0%, #0d3320 100%);
+  border: 3px solid var(--color-accent);
+  box-shadow:
+    inset 0 0 0 1px #2a6a3a,
+    3px 3px 0 rgba(0, 0, 0, 0.5);
+}
+
+/* ── JRPG dialogue box ── */
+.jrpg-dialogue {
+  background: linear-gradient(180deg, var(--color-dialogue-light) 0%, var(--color-dialogue) 40%, var(--color-dialogue-dark) 100%);
+  border: 4px solid var(--color-white-border);
+  box-shadow:
+    inset 0 0 0 2px var(--color-dialogue-light),
+    inset 0 -4px 0 rgba(0, 0, 0, 0.3),
+    0 4px 0 rgba(0, 0, 0, 0.5);
+  image-rendering: pixelated;
+}
+
+.jrpg-nameplate {
+  background: var(--color-dialogue-dark);
+  border: 2px solid var(--color-white-border);
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.4);
+}
+
+/* ── SNES menu item ── */
+.snes-menu-item {
+  background: var(--color-night-mid);
+  border: 2px solid var(--color-cream-dim);
+  transition: background 0.1s, transform 0.1s;
+  cursor: pointer;
+}
+
+.snes-menu-item:hover,
+.snes-menu-item:focus-visible {
+  background: var(--color-dialogue);
+  border-color: var(--color-white-border);
+  outline: none;
+}
+
+.snes-menu-item.selected {
+  background: var(--color-dialogue);
+  border-color: var(--color-fire-bright);
+  box-shadow: inset 0 0 0 1px var(--color-fire);
+}
+
+.snes-menu-item:active {
+  transform: translate(2px, 2px);
+  box-shadow: none;
+}
+
+/* ── Pixel buttons ── */
+.snes-btn {
+  border: 3px solid var(--color-white-border);
+  font-family: var(--font-pixel);
+  font-size: 8px;
+  line-height: 1.6;
+  transition: transform 0.08s, box-shadow 0.08s;
+  cursor: pointer;
+}
+
+.snes-btn:active:not(:disabled) {
+  transform: translate(2px, 2px);
+  box-shadow: none !important;
+}
+
+.snes-btn-orange {
+  background: var(--color-fire);
+  color: var(--color-night);
+  box-shadow: 3px 3px 0 var(--color-primary-dark);
+}
+
+.snes-btn-green {
+  background: var(--color-accent);
+  color: var(--color-night);
+  box-shadow: 3px 3px 0 var(--color-accent-dark);
+}
+
+.snes-btn-blue {
+  background: var(--color-dialogue-light);
+  color: var(--color-cream);
+  box-shadow: 3px 3px 0 var(--color-dialogue-dark);
+}
+
+.snes-btn-ghost {
+  background: var(--color-night-mid);
+  color: var(--color-cream-dim);
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
+}
+
+.snes-btn-ghost:hover:not(:disabled) {
+  color: var(--color-cream);
+  background: var(--color-night-light);
+}
+
+/* ── Pixel fonts ── */
+.font-pixel {
+  font-family: var(--font-pixel);
+}
+
+.font-pixel-xs {
+  font-family: var(--font-pixel);
+  font-size: 7px;
+  line-height: 1.8;
+  letter-spacing: 0.04em;
+}
+
+.font-pixel-sm {
+  font-family: var(--font-pixel);
+  font-size: 9px;
+  line-height: 1.6;
+  letter-spacing: 0.03em;
+}
+
+.font-rpg {
+  font-family: var(--font-rpg);
+  font-size: 20px;
+  line-height: 1.3;
+}
+
+.font-rpg-sm {
+  font-family: var(--font-rpg);
+  font-size: 16px;
+  line-height: 1.3;
+}
+
+/* ── Scene stage environments ── */
+.scene-stage {
+  position: relative;
+  overflow: hidden;
+  image-rendering: pixelated;
+}
+
+/* Dither pattern utility */
+.dither-glow {
+  background-image:
+    repeating-conic-gradient(rgba(255, 153, 51, 0.4) 0% 25%, transparent 0% 50%);
+  background-size: 4px 4px;
+}
+
+/* Scene: Tavern / Restaurant */
+.scene-tavern {
+  background:
+    radial-gradient(ellipse at 50% 80%, rgba(255, 153, 51, 0.35) 0%, transparent 50%),
+    radial-gradient(ellipse at 30% 20%, rgba(255, 204, 0, 0.15) 0%, transparent 40%),
+    linear-gradient(180deg, #2a1a0a 0%, #1a1008 40%, #3a2010 70%, #2a1808 100%);
+}
+
+.scene-tavern::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    /* floor planks */
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 24px,
+      rgba(0, 0, 0, 0.15) 24px,
+      rgba(0, 0, 0, 0.15) 26px
+    ),
+    /* back wall */
+    linear-gradient(180deg, transparent 0%, transparent 35%, rgba(60, 30, 10, 0.8) 35%, rgba(40, 20, 8, 0.9) 100%);
+  pointer-events: none;
+}
+
+.scene-tavern::after {
+  content: "";
+  position: absolute;
+  top: 8%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 40px;
+  background: radial-gradient(circle, #ffcc00 0%, #ff9933 40%, transparent 70%);
+  border-radius: 50%;
+  opacity: 0.7;
+  pointer-events: none;
+  animation: fire-flicker 2s ease-in-out infinite;
+}
+
+/* Scene: Night Street */
+.scene-street {
+  background:
+    radial-gradient(ellipse at 70% 30%, rgba(255, 204, 0, 0.12) 0%, transparent 35%),
+    linear-gradient(180deg, #0a0a2a 0%, #1a1a4e 30%, #0d1a3a 60%, #1a1a2a 100%);
+}
+
+.scene-street::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 35%;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      #2a2a3a 0px,
+      #2a2a3a 20px,
+      #1a1a2a 20px,
+      #1a1a2a 22px
+    );
+  pointer-events: none;
+}
+
+.scene-street::after {
+  content: "";
+  position: absolute;
+  top: 15%;
+  right: 20%;
+  width: 8px;
+  height: 60px;
+  background: #444;
+  box-shadow:
+    20px 0 0 #444,
+    -30px 0 0 #333,
+    -30px -40px 0 0 rgba(255, 204, 0, 0.3),
+    20px -30px 40px 10px rgba(255, 204, 0, 0.15);
+  pointer-events: none;
+}
+
+/* Scene: Shop */
+.scene-shop {
+  background:
+    radial-gradient(ellipse at 50% 90%, rgba(100, 150, 255, 0.1) 0%, transparent 40%),
+    linear-gradient(180deg, #1a2040 0%, #2a3050 40%, #3a3550 70%, #2a2535 100%);
+}
+
+.scene-shop::before {
+  content: "";
+  position: absolute;
+  top: 15%;
+  left: 5%;
+  right: 5%;
+  height: 40%;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(80, 60, 40, 0.6) 0px,
+      rgba(80, 60, 40, 0.6) 30px,
+      rgba(60, 45, 30, 0.6) 30px,
+      rgba(60, 45, 30, 0.6) 32px
+    );
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  pointer-events: none;
+}
+
+/* Scene: Hotel Desk */
+.scene-hotel-desk {
+  background:
+    radial-gradient(ellipse at 50% 70%, rgba(255, 200, 100, 0.15) 0%, transparent 50%),
+    linear-gradient(180deg, #1a1530 0%, #2a2040 35%, #3a2848 65%, #2a2038 100%);
+}
+
+.scene-hotel-desk::before {
+  content: "";
+  position: absolute;
+  bottom: 25%;
+  left: 10%;
+  right: 10%;
+  height: 20%;
+  background: linear-gradient(180deg, #5a4030 0%, #3a2818 100%);
+  border-top: 3px solid #8a6850;
+  pointer-events: none;
+}
+
+.scene-hotel-desk::after {
+  content: "";
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 20px;
+  background: radial-gradient(ellipse, rgba(255, 220, 150, 0.5) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Scene: Hotel Concierge */
+.scene-hotel-concierge {
+  background:
+    radial-gradient(ellipse at 50% 20%, rgba(255, 220, 150, 0.2) 0%, transparent 45%),
+    linear-gradient(180deg, #0a0820 0%, #1a1440 40%, #2a2048 70%, #1a1830 100%);
+}
+
+.scene-hotel-concierge::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 30%;
+  background:
+    repeating-linear-gradient(
+      45deg,
+      #3a2848 0px,
+      #3a2848 8px,
+      #2a1838 8px,
+      #2a1838 16px
+    );
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* ── World map background for mission select ── */
+.world-map-bg {
+  background:
+    radial-gradient(ellipse at 20% 80%, rgba(13, 51, 32, 0.8) 0%, transparent 40%),
+    radial-gradient(ellipse at 80% 30%, rgba(26, 26, 78, 0.6) 0%, transparent 35%),
+    radial-gradient(ellipse at 50% 50%, rgba(42, 42, 110, 0.3) 0%, transparent 60%),
+    linear-gradient(180deg, #0a0a2a 0%, #0d3320 40%, #1a1a4e 70%, #0a0a2a 100%);
+}
+
+/* ── XP bar (SNES style) ── */
+.snes-xp-bar {
+  height: 10px;
+  background: var(--color-night);
+  border: 2px solid var(--color-cream-dim);
+  box-shadow: inset 0 2px 0 rgba(0, 0, 0, 0.4);
+}
+
+.snes-xp-fill {
+  height: 100%;
+  background: linear-gradient(180deg, var(--color-fire-bright) 0%, var(--color-fire) 100%);
+  box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.2);
+  transition: width 0.5s ease;
+}
+
+/* ── Quest log sidebar ── */
+.quest-log {
+  background: rgba(10, 10, 42, 0.85);
+  border: 2px solid var(--color-accent);
+  box-shadow: inset 0 0 0 1px rgba(68, 204, 102, 0.3);
+}
+
+/* ── Animations ── */
+@keyframes fire-flicker {
+  0%, 100% { opacity: 0.6; transform: translateX(-50%) scale(1); }
+  50% { opacity: 0.85; transform: translateX(-50%) scale(1.08); }
+}
+
+@keyframes orb-pulse {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+@keyframes blink-cursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes sprite-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(16px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes star-twinkle {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+.animate-orb-pulse { animation: orb-pulse 1.5s ease-in-out infinite; }
+.animate-slide-up { animation: slide-up 0.3s ease-out both; }
+.animate-slide-in-right { animation: slide-in-right 0.35s ease-out both; }
+.animate-sprite-bob { animation: sprite-bob 2s ease-in-out infinite; }
+.animate-blink { animation: blink-cursor 0.8s step-end infinite; }
+
+.scrollbar-thin::-webkit-scrollbar { width: 4px; }
+.scrollbar-thin::-webkit-scrollbar-thumb { background: var(--color-cream-dim); }
+.scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
+
+/* Legacy aliases */
+.game-panel {
+  background: var(--color-dialogue-dark);
+  border: 3px solid var(--color-white-border);
+  box-shadow: inset 0 0 0 1px var(--color-dialogue-light), 4px 4px 0 rgba(0, 0, 0, 0.5);
+}
+.game-panel-quest {
+  background: linear-gradient(180deg, #1a3a1a 0%, #0d3320 100%);
+  border: 3px solid var(--color-accent);
+  box-shadow: inset 0 0 0 1px #2a6a3a, 3px 3px 0 rgba(0, 0, 0, 0.5);
+}
+.game-btn {
+  border: 3px solid var(--color-white-border);
+  font-family: var(--font-pixel);
+  font-size: 8px;
+  line-height: 1.6;
+  transition: transform 0.08s, box-shadow 0.08s;
+  cursor: pointer;
+}
+.game-btn-red {
+  background: var(--color-fire);
+  color: var(--color-night);
+  box-shadow: 3px 3px 0 var(--color-primary-dark);
+}
+.game-btn-green {
+  background: var(--color-accent);
+  color: var(--color-night);
+  box-shadow: 3px 3px 0 var(--color-accent-dark);
+}
+.game-btn-ghost {
+  background: var(--color-night-mid);
+  color: var(--color-cream-dim);
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
+}
