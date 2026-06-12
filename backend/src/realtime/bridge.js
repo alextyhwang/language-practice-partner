@@ -8,6 +8,7 @@ import {
   GOAL_TOOL_NAME,
   isCoachingTool,
 } from "../coaching/tools.js";
+import { normalizeSubtitleText, translateSubtitleText } from "../translation.js";
 import { buildSessionUpdate } from "./sessionConfig.js";
 
 // Bridges one browser WebSocket to one OpenAI Realtime WebSocket.
@@ -22,6 +23,7 @@ export class RealtimeBridge {
     this.pendingUpstream = [];
     this.activeResponse = false;
     this.handledCalls = new Set();
+    this.responseText = new Map();
     this.context = null;
     this.options = {};
     this.closed = false;
@@ -206,6 +208,12 @@ export class RealtimeBridge {
     }
 
     if (event.type === "response.created") this.activeResponse = true;
+    if (event.type === "response.output_audio_transcript.delta") {
+      this.appendResponseText(event.response_id, "audioTranscript", event.delta);
+    }
+    if (event.type === "response.output_text.delta") {
+      this.appendResponseText(event.response_id, "text", event.delta);
+    }
     if (
       event.type === "response.done" ||
       event.type === "response.cancelled" ||
@@ -216,10 +224,69 @@ export class RealtimeBridge {
 
     if (event.type === "response.done") {
       this.handleCompletedResponse(event.response);
+      this.translateCompletedResponse(event.response);
     }
 
     // Forward the raw Realtime event so the client can render transcripts/audio.
     this.forwardRaw(text);
+  }
+
+  appendResponseText(responseId, field, delta) {
+    if (!responseId || !delta) return;
+    const current = this.responseText.get(responseId) || { audioTranscript: "", text: "" };
+    current[field] += delta;
+    this.responseText.set(responseId, current);
+  }
+
+  translateCompletedResponse(response) {
+    if (!config.translationEnabled || !this.context) return;
+
+    const responseId = response?.id;
+    const buffered = responseId ? this.responseText.get(responseId) : null;
+    const sourceText = normalizeSubtitleText(
+      buffered?.audioTranscript || buffered?.text || this.extractResponseText(response),
+    );
+
+    if (responseId) this.responseText.delete(responseId);
+    if (!sourceText) return;
+
+    translateSubtitleText({
+      text: sourceText,
+      sourceLanguage: this.context.language.label,
+      targetLanguage: this.context.baseLanguage,
+      safetyIdentifier: this.safetyIdentifier,
+    })
+      .then((translation) => {
+        this.sendClient({
+          type: "lpp.translation",
+          translation: {
+            ...translation,
+            responseId,
+            sourceText,
+          },
+        });
+      })
+      .catch((error) => {
+        this.sendClient({
+          type: "lpp.translation.error",
+          responseId,
+          message: error.message || "Translation failed.",
+        });
+      });
+  }
+
+  extractResponseText(response) {
+    const parts = [];
+
+    for (const item of response?.output || []) {
+      if (item?.type !== "message") continue;
+      for (const content of item.content || []) {
+        if (typeof content?.transcript === "string") parts.push(content.transcript);
+        if (typeof content?.text === "string") parts.push(content.text);
+      }
+    }
+
+    return parts.join(" ");
   }
 
   handleCompletedResponse(response) {

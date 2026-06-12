@@ -22,3 +22,27 @@ that names `backend/` and clearly authorizes the specific change.
 
 - `backend/` — Realtime voice coaching service (LOCKED — see above).
 - Everything else — open for normal work.
+
+## Frontend handoff: realtime subtitle translations
+
+The backend exposes UI-only translations for assistant speech so the frontend
+can show English subtitles under target-language replies without asking the
+Realtime roleplay model to speak English in-character.
+
+Frontend agents should treat this as a backend contract and consume it from
+non-backend code:
+
+- Realtime socket event: listen for `lpp.translation`.
+- Payload shape: `{ translation: { text, sourceText, sourceLanguage, targetLanguage, model, responseId } }`.
+- Render `translation.text` as secondary subtitle text attached to the assistant
+  message matching `responseId`.
+- The original assistant transcript still arrives from
+  `response.output_audio_transcript.delta`; keep that as the primary transcript.
+- REST fallback for future UI flows: `POST /api/translate` with `text`,
+  `sourceLanguage`, and optional `targetLanguage`.
+- Keep translations optional or revealable where possible so learners do not
+  become dependent on English subtitles during practice.
+
+Do not edit `backend/` to change this behavior unless a human explicitly
+authorizes backend work. If the frontend needs a different contract, document
+the request and ask a maintainer.
