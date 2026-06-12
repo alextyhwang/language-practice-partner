@@ -1,0 +1,15 @@
+---
+description: The backend/ directory is locked and must not be modified by AI agents.
+alwaysApply: true
+---
+
+# backend/ is LOCKED
+
+Do NOT create, edit, move, rename, or delete any file under `backend/`. Do not
+refactor, reformat, change dependencies, or run/restart the backend service.
+
+If a task seems to require a change in `backend/`, STOP and ask a human
+maintainer first. Only proceed with an explicit human instruction that names
+`backend/` and authorizes the specific change.
+
+See `AGENTS.md` at the repo root for the full policy.

@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Language Practice Partner — Backend Harness</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Language Practice Partner</p>
+          <h1>Backend test harness</h1>
+        </div>
+        <div class="status" id="status">
+          <span class="status-dot"></span>
+          <span id="statusText">Idle</span>
+        </div>
+      </header>
+
+      <section class="setup" aria-label="Session setup">
+        <div class="field">
+          <label for="language">Language</label>
+          <select id="language"></select>
+        </div>
+        <div class="field">
+          <label for="level">Level</label>
+          <select id="level"></select>
+        </div>
+        <div class="field">
+          <label for="mode">Coaching mode</label>
+          <select id="mode"></select>
+        </div>
+        <div class="field">
+          <label for="scenario">Mission</label>
+          <select id="scenario"></select>
+        </div>
+        <button id="startButton" class="primary" type="button">Start session</button>
+      </section>
+
+      <section class="workspace">
+        <div class="conversation">
+          <div class="transcript" id="transcript" aria-live="polite"></div>
+          <form class="composer" id="composer">
+            <input id="textInput" autocomplete="off" placeholder="Type a turn in the target language..." aria-label="Message" />
+            <button class="send" type="submit">Send</button>
+          </form>
+          <button class="talk" id="talkButton" type="button" disabled>
+            <span class="talk-light"></span>
+            <span id="talkLabel">Hold to talk</span>
+          </button>
+        </div>
+
+        <aside class="coaching">
+          <div class="panel">
+            <h2>Corrections</h2>
+            <div id="corrections" class="cards"></div>
+          </div>
+          <div class="panel">
+            <h2>Scores</h2>
+            <div id="scores" class="cards"></div>
+          </div>
+        </aside>
+      </section>
+    </main>
+
+    <script src="/client.js" type="module"></script>
+  </body>
+</html>
