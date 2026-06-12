@@ -111,11 +111,14 @@ export function useRealtimeSession({
         setPartnerSpeaking(true);
         setTranscript((prev) => {
           const existingId = partnerTurnByResponse.current.get(responseId);
-          if (existingId) {
-            return prev.map((turn) =>
-              turn.id === existingId ? { ...turn, text: turn.text + delta } : turn,
-            );
+          const idx = existingId ? prev.findIndex((turn) => turn.id === existingId) : -1;
+          // Append a delta to the in-progress turn for this response.
+          if (idx >= 0) {
+            const next = prev.slice();
+            next[idx] = { ...next[idx], text: next[idx].text + delta };
+            return next;
           }
+          // No turn yet (or the ref desynced from state) — start a fresh one.
           const id = nextTurnId();
           partnerTurnByResponse.current.set(responseId, id);
           return [
@@ -192,6 +195,10 @@ export function useRealtimeSession({
   // Reset visible state when switching missions.
   useEffect(() => {
     turnCounter.current = 0;
+    // Keep the response->turn map in lockstep with the transcript array, or the
+    // delta handler will try to update turns that no longer exist.
+    partnerTurnByResponse.current.clear();
+    lastUserTurnId.current = null;
     setTranscript([]);
     setCorrections([]);
     setActiveCorrectionId(null);
@@ -255,6 +262,15 @@ export function useRealtimeSession({
     setPhase("processing");
   }, [activeCorrectionId, corrections]);
 
+  const completeMission = useCallback(() => {
+    setGoalProgress(100);
+    setCurrentGoalIndex(scenario.goals.length - 1);
+    setPartnerSpeaking(false);
+    setIsMicActive(false);
+    setPhase("idle");
+    clientRef.current?.stopMic();
+  }, [scenario.goals.length]);
+
   const formatTime = (seconds: number) => {
     const m = Math.floor(seconds / 60);
     const s = seconds % 60;
@@ -300,6 +316,7 @@ export function useRealtimeSession({
     partnerSpeaking,
     currentLine,
     npcMood,
+    completeMission,
     toggleMic,
     dismissCorrection,
     retryPhrase,

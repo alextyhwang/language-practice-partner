@@ -1,3 +1,4 @@
+import { useCallback, useEffect, useState } from "react";
 import { useRealtimeSession } from "../hooks/useRealtimeSession";
 import type { CoachingMode } from "../types";
 import { CharacterStage } from "../components/CharacterStage";
@@ -5,6 +6,7 @@ import { CoachTipPopup } from "../components/CoachTipPopup";
 import { DialogueBox } from "../components/DialogueBox";
 import { DialogueLog } from "../components/DialogueLog";
 import { GameActionBar } from "../components/GameActionBar";
+import { MissionCompleteOverlay } from "../components/MissionCompleteOverlay";
 import { MissionGoalBar } from "../components/MissionGoalBar";
 import { PlayerStatsBar } from "../components/PlayerStatsBar";
 import { SessionHeader } from "../components/SessionHeader";
@@ -18,6 +20,24 @@ interface Props {
 
 export function LiveSession({ scenarioId, coachingMode = "friendly", language, onExit }: Props) {
   const session = useRealtimeSession({ scenarioId, coachingMode, language });
+  const [showComplete, setShowComplete] = useState(false);
+
+  const finishAndExit = useCallback(() => {
+    setShowComplete(false);
+    onExit();
+  }, [onExit]);
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== "-" || showComplete) return;
+      event.preventDefault();
+      session.completeMission();
+      setShowComplete(true);
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [session.completeMission, showComplete]);
 
   return (
     <div className="snes-crt game-bg game-bg-night relative mx-auto flex h-full max-w-lg flex-col overflow-hidden">
@@ -87,6 +107,14 @@ export function LiveSession({ scenarioId, coachingMode = "friendly", language, o
         onToggleMic={session.toggleMic}
         onExit={onExit}
       />
+
+      {showComplete && (
+        <MissionCompleteOverlay
+          scenario={session.scenario}
+          formattedTime={session.formattedTime}
+          onFinished={finishAndExit}
+        />
+      )}
     </div>
   );
 }
