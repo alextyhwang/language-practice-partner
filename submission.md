@@ -14,7 +14,7 @@ Video: https://drive.google.com/file/d/1Fn0gDLOm1d6JDYdOuvfUADOZGwxqO41l/view?us
 
 <p align="center">
   <img src="lingo2.png" alt="Screenshot 2" width="50%" />
-  <img src="lingo3.png" alt="Screenshot 3" width="50%" />
+  <img src="lingo3.png" alt="Screenshot 3" width="45%" />
 </p>
 
 
