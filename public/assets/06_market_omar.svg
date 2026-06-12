@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 300" width="200" height="300">
+  <title>Omar - market vendor, bargaining</title>
+  <ellipse cx="100" cy="294" rx="42" ry="7" fill="#00000025"/>
+  <rect x="54" y="248" width="34" height="38" rx="10" fill="#4E342E"/>
+  <rect x="112" y="248" width="34" height="38" rx="10" fill="#4E342E"/>
+  <rect x="48" y="262" width="44" height="22" rx="11" fill="#3E2723"/>
+  <rect x="108" y="262" width="44" height="22" rx="11" fill="#3E2723"/>
+  <rect x="38" y="148" width="124" height="108" rx="26" fill="#00897B"/>
+  <path d="M38 200 Q100 188 162 200 L162 256 Q100 244 38 256 Z" fill="#00695C"/>
+  <rect x="62" y="208" width="76" height="40" rx="6" fill="#D7CCC8"/>
+  <circle cx="78" cy="226" r="8" fill="#E53935"/>
+  <circle cx="96" cy="222" r="8" fill="#FB8C00"/>
+  <circle cx="114" cy="226" r="8" fill="#FDD835"/>
+  <circle cx="88" cy="238" r="8" fill="#43A047"/>
+  <circle cx="106" cy="238" r="8" fill="#8E24AA"/>
+  <rect x="6" y="120" width="38" height="24" rx="12" fill="#00897B" transform="rotate(26 25 132)"/>
+  <rect x="156" y="152" width="38" height="24" rx="12" fill="#00897B"/>
+  <g transform="translate(14,98) rotate(18)">
+    <ellipse cx="0" cy="0" rx="13" ry="11" fill="#C97E54"/>
+    <circle cx="-2" cy="-4" r="9" fill="#E53935"/>
+  </g>
+  <ellipse cx="186" cy="180" rx="14" ry="12" fill="#C97E54"/>
+  <ellipse cx="100" cy="148" rx="34" ry="17" fill="#C97E54"/>
+  <ellipse cx="100" cy="106" rx="50" ry="48" fill="#C97E54"/>
+  <rect x="56" y="52" width="88" height="30" rx="10" fill="#5D4037"/>
+  <ellipse cx="100" cy="52" rx="48" ry="14" fill="#6D4C41"/>
+  <ellipse cx="100" cy="80" rx="50" ry="12" fill="#4E342E"/>
+  <circle cx="83" cy="110" r="8" fill="#1A1A1A"/>
+  <circle cx="117" cy="110" r="8" fill="#1A1A1A"/>
+  <circle cx="86" cy="107" r="3" fill="white"/>
+  <circle cx="120" cy="107" r="3" fill="white"/>
+  <path d="M74 100 Q83 94 92 100" stroke="#3E2723" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M108 100 Q117 94 126 100" stroke="#3E2723" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M72 132 Q100 126 128 132 Q120 144 100 144 Q80 144 72 132" fill="#3E2723"/>
+  <path d="M84 128 Q100 138 116 128" stroke="#1A1A1A" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <text x="100" y="299" text-anchor="middle" font-family="Arial Rounded MT Bold,Arial,sans-serif" font-size="13" font-weight="700" fill="#00695C">Omar · Vendor</text>
+</svg>
