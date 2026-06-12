@@ -143,41 +143,50 @@ The learner repeats the corrected phrase immediately. Lingo compares the origina
 
 ### Freeze Detection (Auto-Hint)
 
-The moment learners actually dread is the silence in the middle of a real conversation, when it is their turn and nothing comes out. Lingo treats that silence as a signal instead of a dead end.
+The moment learners actually dread is the silence in the middle of a real conversation, when it is their turn and nothing comes out. Lingo treats that silence as a signal instead of a dead end. The learner never has to ask for help; help arrives because they went quiet.
 
-- Trigger: the learner is silent for about five seconds after it becomes their turn to speak.
-- Behavior: a hint card appears automatically. There is no button to press and no need to admit you are stuck.
+- Primary trigger: the learner is silent for about five seconds after it becomes their turn to speak. The hint surfaces automatically, with no button to press and no need to admit being stuck.
+- Manual trigger and fallback: a Help button lets the learner request a hint at any time. It also acts as the fallback if the automatic hint is not ready the instant silence passes five seconds.
 - Content: the suggested line in the target language, plus pinyin and an English translation, so the learner can read it aloud right away.
 - After: the learner speaks the line and the normal roleplay, correction, and retry loops continue as usual.
 
 Freeze detection is the forward-looking counterpart to the retry loop. The retry loop is backward help that turns a mistake you already made into a corrected attempt; freeze detection is forward help that gets words into your mouth before a stall turns into a wall. Together they keep the learner speaking from both directions.
 
-#### How Freeze Detection Works (GPT Realtime)
+#### How the Hint Is Generated
 
-Lingo runs the live roleplay on GPT Realtime, which gives us exactly the signal we need to detect a freeze.
+Hints are generated dynamically from the live conversation, not pulled from a fixed script. The coach model already has the full context it needs: the scenario, level, mode, mission goal, and running transcript. A hint is the single best next line the learner could say at this exact point in the roleplay.
 
-GPT Realtime uses server-side voice activity detection (VAD) and emits events on the realtime stream as the learner's microphone audio comes in:
+To make the hint feel instant when silence hits, Lingo generates it ahead of time rather than after the freeze:
 
-- `input_audio_buffer.speech_started`: the learner has started speaking.
-- `input_audio_buffer.speech_stopped`: the learner has stopped speaking.
+1. Proactive pre-generation. While it is the learner's turn, Lingo keeps a fresh candidate hint ready in the background, regenerated from the latest context whenever the conversation moves (each coach turn and any partial learner input). The line is prepared before it is ever needed.
+2. Silence surfaces the prepared line. When the five-second freeze fires, Lingo bubbles up the already-generated hint immediately, so there is no visible wait.
+3. Help button forces or fills in. If the learner taps Help, or if the pre-generated line is not ready yet, Lingo requests a hint on demand for the current moment.
 
-The built-in `silence_duration_ms` setting (default 500ms) is only used to decide when a turn has ended, so it is far too short to represent a real "freeze." A five-second freeze needs its own timer layered on top of these events:
-
-1. When the coach finishes its turn (`response.done`), start a 5000ms freeze timer.
-2. If `input_audio_buffer.speech_started` arrives before the timer expires, cancel the timer; the learner answered on their own.
-3. If the timer reaches 5000ms with no `speech_started`, the learner has frozen, so surface the hint card.
+Structurally, hint generation reuses the same pattern as corrections and scores. The coach emits the hint through a `suggest_hint` function tool (alongside `record_correction` and `score_turn`), the backend relays it to the client as an `lpp.hint` event, and the client renders it as a hint card. The tool returns the line in the target language plus pinyin and an English translation.
 
 ```mermaid
 flowchart TD
-    coachDone["Coach finishes speaking (response.done)"] --> startTimer[Start 5s freeze timer]
-    startTimer --> listen[Listen on realtime stream]
-    listen --> spoke{"input_audio_buffer.speech_started?"}
-    spoke -->|"Yes (before 5s)"| cancel[Cancel timer, continue normally]
-    spoke -->|"No (timer hits 5s)"| hint["Bubble hint card: target line + pinyin + English"]
-    hint --> listen
+    turn["Learner's turn begins"] --> pregen["Pre-generate candidate hint from live context"]
+    pregen --> wait{"What happens first?"}
+    wait -->|"Learner speaks"| clear["Discard hint, continue normally"]
+    wait -->|"Silent ~5s"| surface["Surface the pre-generated hint card"]
+    wait -->|"Taps Help"| ondemand["Request hint on demand"]
+    surface --> ready{"Hint ready?"}
+    ready -->|"Yes"| card["Show hint card: line + pinyin + English"]
+    ready -->|"Not yet"| ondemand
+    ondemand --> card
 ```
 
-GPT Realtime also offers a native `idle_timeout_ms` option that emits an `input_audio_buffer.timeout_triggered` event after a configured silence. We avoid it for now because it is designed to automatically trigger a model response when it fires, whereas a freeze hint should be a silent on-screen card that the learner reads, not the coach jumping in and answering for them. The client-side timer keyed off the VAD events gives us that control.
+#### How Freeze Detection Works (GPT Realtime)
+
+Lingo runs the live roleplay on GPT Realtime, which provides the signal used to detect a freeze. What "silence" means depends on the session's turn mode:
+
+- Server VAD mode: GPT Realtime emits `input_audio_buffer.speech_started` when the learner starts speaking. The freeze timer starts when the coach finishes its turn (`response.done`) and is cancelled if `speech_started` arrives first.
+- Push-to-talk mode (the current MVP client): there are no `speech_started` events, so "silent" means the coach has finished (`response.done`) and the learner has not begun their turn (no press of Hold to talk). The same five-second timer applies.
+
+In both cases the freeze timer is a five-second client-side timer; the built-in `silence_duration_ms` setting (default 500ms) only decides when a single turn has ended and is far too short to represent a real freeze.
+
+GPT Realtime also offers a native `idle_timeout_ms` option that emits an `input_audio_buffer.timeout_triggered` event after a configured silence. We avoid it for now because it is designed to automatically trigger a model response when it fires, whereas a freeze hint should be a silent on-screen card that the learner reads, not the coach jumping in and answering for them. The client-side timer keeps that control with us.
 
 ### Shadow Mode
 
