@@ -84,7 +84,7 @@ export class RealtimeBridge {
       model: config.model,
       language: this.context.language,
       level: this.context.level,
-      mode: this.context.mode,
+      difficulty: this.context.difficulty,
       scenario: this.context.scenario,
       baseLanguage: this.context.baseLanguage,
     });

@@ -3,7 +3,6 @@ const els = {
   statusText: document.querySelector("#statusText"),
   language: document.querySelector("#language"),
   level: document.querySelector("#level"),
-  mode: document.querySelector("#mode"),
   scenario: document.querySelector("#scenario"),
   startButton: document.querySelector("#startButton"),
   transcript: document.querySelector("#transcript"),
@@ -35,8 +34,7 @@ async function init() {
     const catalog = await fetch("/api/catalog").then((res) => res.json());
     fillSelect(els.language, catalog.languages, "label", catalog.defaults.language);
     fillSelect(els.level, catalog.levels, (l) => `${l.id} — ${l.label}`, catalog.defaults.level);
-    fillSelect(els.mode, catalog.modes, "label", catalog.defaults.mode);
-    fillSelect(els.scenario, catalog.scenarios, "label", catalog.defaults.scenario);
+    fillScenarioSelect(els.scenario, catalog.scenarios, catalog.difficulties, catalog.defaults.scenario);
   } catch {
     setStatus("Failed to load catalog", false);
   }
@@ -59,6 +57,23 @@ function fillSelect(select, items, labelKey, selectedId) {
   }
 }
 
+// Missions are grouped by their intrinsic difficulty (easy / medium / hard).
+function fillScenarioSelect(select, scenarios, difficulties, selectedId) {
+  select.innerHTML = "";
+  for (const difficulty of difficulties) {
+    const group = document.createElement("optgroup");
+    group.label = difficulty.label;
+    for (const scenario of scenarios.filter((s) => s.difficulty === difficulty.id)) {
+      const option = document.createElement("option");
+      option.value = scenario.id;
+      option.textContent = scenario.label;
+      if (scenario.id === selectedId) option.selected = true;
+      group.append(option);
+    }
+    if (group.children.length > 0) select.append(group);
+  }
+}
+
 function startSession() {
   if (ws) ws.close();
   els.transcript.innerHTML = "";
@@ -76,7 +91,6 @@ function startSession() {
         config: {
           language: els.language.value,
           level: els.level.value,
-          mode: els.mode.value,
           scenario: els.scenario.value,
         },
         turnDetection: "manual",
@@ -105,7 +119,7 @@ function handleServerEvent(message) {
       appendMessage("assistant", `[error] ${event.message}`);
       return;
     case "lpp.session":
-      appendMessage("assistant", `Mission: ${event.scenario.label} · ${event.mode.label} · ${event.language.label}`);
+      appendMessage("assistant", `Mission: ${event.scenario.label} · ${event.difficulty.label} · ${event.language.label}`);
       if (event.scenario.userGoal) {
         appendMessage("assistant", `🎯 Your goal: ${event.scenario.userGoal} (convince them!)`);
       }

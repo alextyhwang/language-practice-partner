@@ -7,23 +7,24 @@ import {
   DEFAULT_LEVEL_ID,
   DEFAULT_BASE_LANGUAGE,
 } from "../coaching/languages.js";
-import { COACHING_MODES, DEFAULT_MODE_ID } from "../coaching/modes.js";
+import { DIFFICULTIES } from "../coaching/difficulty.js";
 import { SCENARIOS, DEFAULT_SCENARIO_ID } from "../coaching/scenarios.js";
 
 // Exposes the coaching catalog so the client can render selectors without
-// hardcoding the domain.
+// hardcoding the domain. Difficulty is intrinsic to each scenario (see
+// `scenario.difficulty`); `difficulties` here is the reference list of levels
+// for labels and grouping.
 export const catalogRouter = Router();
 
 catalogRouter.get("/catalog", (_req, res) => {
   res.json({
     languages: LANGUAGES,
     levels: PROFICIENCY_LEVELS,
-    modes: COACHING_MODES,
+    difficulties: DIFFICULTIES,
     scenarios: SCENARIOS,
     defaults: {
       language: DEFAULT_LANGUAGE_ID,
       level: DEFAULT_LEVEL_ID,
-      mode: DEFAULT_MODE_ID,
       scenario: DEFAULT_SCENARIO_ID,
       baseLanguage: DEFAULT_BASE_LANGUAGE,
     },

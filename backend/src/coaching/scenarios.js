@@ -12,6 +12,7 @@ export const SCENARIOS = [
     id: "order_food",
     label: "Ordering food",
     category: "daily_life",
+    difficulty: "easy",
     setting: "A busy sit-down restaurant.",
     agentRole: "a waiter taking the learner's order",
     agentPersona:
@@ -27,6 +28,7 @@ export const SCENARIOS = [
     id: "ask_out",
     label: "Asking a girl out",
     category: "social",
+    difficulty: "hard",
     setting: "A relaxed coffee shop.",
     agentRole: "Mia, someone the learner just met and finds attractive",
     agentPersona:
@@ -42,6 +44,7 @@ export const SCENARIOS = [
     id: "directions",
     label: "Asking for specific directions",
     category: "travel",
+    difficulty: "easy",
     setting: "A street corner in an unfamiliar city.",
     agentRole: "a local passerby who is in a bit of a hurry",
     agentPersona:
@@ -57,6 +60,7 @@ export const SCENARIOS = [
     id: "change_flight",
     label: "Changing your flight",
     category: "travel",
+    difficulty: "hard",
     setting: "An airline service desk.",
     agentRole: "an airline customer service agent",
     agentPersona:
@@ -72,6 +76,7 @@ export const SCENARIOS = [
     id: "ask_help",
     label: "Asking someone to help with a task",
     category: "social",
+    difficulty: "easy",
     setting: "A shared apartment, talking to a roommate.",
     agentRole: "the learner's roommate, who is relaxing after a long day",
     agentPersona:
@@ -87,6 +92,7 @@ export const SCENARIOS = [
     id: "market_bargain",
     label: "Bargaining at a street market",
     category: "travel",
+    difficulty: "medium",
     setting: "A lively open-air market stall.",
     agentRole: "a market vendor selling handmade goods",
     agentPersona:
@@ -102,6 +108,7 @@ export const SCENARIOS = [
     id: "hotel_checkin",
     label: "Checking into a hotel",
     category: "travel",
+    difficulty: "easy",
     setting: "The front desk of a hotel.",
     agentRole: "a hotel receptionist",
     agentPersona:
@@ -117,6 +124,7 @@ export const SCENARIOS = [
     id: "small_talk",
     label: "Making small talk at a party",
     category: "social",
+    difficulty: "medium",
     setting: "A crowded house party.",
     agentRole: "a stranger standing near the snacks at the party",
     agentPersona:
@@ -132,6 +140,7 @@ export const SCENARIOS = [
     id: "customer_service",
     label: "Explaining a problem at customer service",
     category: "daily_life",
+    difficulty: "medium",
     setting: "A customer service counter at a store.",
     agentRole: "a customer service representative",
     agentPersona:
@@ -147,6 +156,7 @@ export const SCENARIOS = [
     id: "job_interview",
     label: "Interviewing for a part-time job",
     category: "interview",
+    difficulty: "hard",
     setting: "A short interview at a small café that's hiring.",
     agentRole: "the café manager interviewing the learner",
     agentPersona:
