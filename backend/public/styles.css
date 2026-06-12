@@ -168,6 +168,15 @@ button {
   border: 1px solid var(--line);
 }
 
+.message.goal {
+  align-self: center;
+  max-width: 100%;
+  text-align: center;
+  background: rgba(70, 211, 154, 0.14);
+  border: 1px solid var(--good);
+  color: var(--text);
+}
+
 .composer {
   display: flex;
   gap: 10px;

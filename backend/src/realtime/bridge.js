@@ -5,6 +5,7 @@ import { resolveCoachingContext, buildOpeningPrompt } from "../coaching/instruct
 import {
   CORRECTION_TOOL_NAME,
   SCORE_TOOL_NAME,
+  GOAL_TOOL_NAME,
   isCoachingTool,
 } from "../coaching/tools.js";
 import { buildSessionUpdate } from "./sessionConfig.js";
@@ -247,6 +248,8 @@ export class RealtimeBridge {
       this.sendClient({ type: "lpp.correction", correction: args });
     } else if (item.name === SCORE_TOOL_NAME) {
       this.sendClient({ type: "lpp.score", score: args });
+    } else if (item.name === GOAL_TOOL_NAME) {
+      this.sendClient({ type: "lpp.goal", goal: args });
     }
 
     // Acknowledge the tool call so the conversation item is resolved. These

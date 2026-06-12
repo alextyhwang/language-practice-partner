@@ -106,12 +106,18 @@ function handleServerEvent(message) {
       return;
     case "lpp.session":
       appendMessage("assistant", `Mission: ${event.scenario.label} · ${event.mode.label} · ${event.language.label}`);
+      if (event.scenario.userGoal) {
+        appendMessage("assistant", `🎯 Your goal: ${event.scenario.userGoal} (convince them!)`);
+      }
       return;
     case "lpp.correction":
       renderCorrection(event.correction);
       return;
     case "lpp.score":
       renderScore(event.score);
+      return;
+    case "lpp.goal":
+      renderGoal(event.goal);
       return;
     case "error":
       appendMessage("assistant", event.error?.message || "Realtime API error.");
@@ -166,6 +172,17 @@ function renderCorrection(c) {
     ${c.drill ? `<div class="explain">Drill: “${escapeHtml(c.drill)}”</div>` : ""}
   `;
   els.corrections.prepend(card);
+}
+
+function renderGoal(g) {
+  setStatus("🎯 Goal reached!", true);
+  const banner = document.createElement("article");
+  banner.className = "message assistant goal";
+  banner.innerHTML = `<strong>🎯 GOAL REACHED</strong><br>${escapeHtml(g.summary || "")}${
+    g.winningLine ? `<div class="explain">Winning line: “${escapeHtml(g.winningLine)}”</div>` : ""
+  }`;
+  els.transcript.append(banner);
+  scrollTranscript();
 }
 
 function renderScore(s) {
