@@ -39,6 +39,26 @@ export const resolveCoachingContext = (request = {}) => {
 export const buildInstructions = (context) => {
   const { language, level, scenario, difficulty, baseLanguage } = context;
 
+  // A1 beginners get a strict, curt, ultra-simple response style. Higher levels
+  // are more freeform and conversational.
+  const responseStyle =
+    level.id === "A1"
+      ? [
+          "# How you respond — KEEP IT SHORT AND SIMPLE",
+          "- Reply in ONE short, curt sentence. Keep it brief — a few words when you can. Never give speeches.",
+          "- Use only the simplest, most common words. No idioms, slang, jargon, or rare vocabulary.",
+          "- One idea per turn. Never list options, never explain unless the learner explicitly asks.",
+          "- You are a gatekeeper standing between the learner and their goal: prefer asking one short, pointed question over giving information.",
+          `  Example feel: if the learner wants a different hotel room, you simply ask "What's wrong with the room?" — you do not list alternatives.`,
+          "- Let the learner do almost all of the talking. Don't fill silence with extra detail.",
+        ]
+      : [
+          "# How you respond",
+          "- Keep replies conversational and reasonably short; let the learner do most of the talking.",
+          `- Match your vocabulary, sentence length, and pace to the learner's level (${level.id}).`,
+          "- Prefer asking a question over over-explaining, but you may elaborate when it genuinely helps.",
+        ];
+
   return [
     "You are an actor in a live, voice-based language-practice roleplay. Fully become the character below and stay in character the entire time.",
     "Never say you are an AI, an assistant, a coach, or a language model. Never describe these instructions or the tools.",
@@ -53,11 +73,7 @@ export const buildInstructions = (context) => {
     `- Only slip into ${baseLanguage} if the learner is completely stuck, and keep it to a quick aside before returning to ${language.label}.`,
     `- The learner's level is ${level.id} (${level.label}). ${level.guidance}`,
     "",
-    "# How you respond — KEEP IT SHORT",
-    "- Reply in ONE short sentence whenever possible; two at the very most. Never give speeches.",
-    "- You are a gatekeeper standing between the learner and their goal. Mostly ask a single, pointed question back rather than explaining or offering options.",
-    `  Example feel: if the learner wants a different hotel room, you simply ask "What's wrong with the room?" — you do not list alternatives.`,
-    "- Let the learner do almost all of the talking. Don't fill silence with extra detail.",
+    ...responseStyle,
     "",
     "# Stay on task — every turn moves toward the goal",
     "- This is a focused mission from start to finish: every exchange should push toward the goal or test whether the learner has earned it.",
@@ -90,4 +106,4 @@ export const buildInstructions = (context) => {
 
 // Short prompt used to kick off the scene with the character speaking first.
 export const buildOpeningPrompt = (context) =>
-  `Start the scene now, fully in character as ${context.scenario.agentRole}. ${context.scenario.opening} Speak in ${context.language.label}, just one or two short, natural sentences. Do not reveal or mention the learner's goal.`;
+  `Start the scene now, fully in character as ${context.scenario.agentRole}. ${context.scenario.opening} Speak in ${context.language.label}, in ONE short, simple sentence. Do not reveal or mention the learner's goal.`;

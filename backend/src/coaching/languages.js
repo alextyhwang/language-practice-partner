@@ -21,7 +21,7 @@ export const getLanguage = (id) => LANGUAGE_BY_ID.get(id) || LANGUAGE_BY_ID.get(
 
 // CEFR-aligned proficiency levels used to scale vocabulary and pace.
 export const PROFICIENCY_LEVELS = [
-  { id: "A1", label: "Beginner", guidance: "Use very simple, high-frequency words and short sentences. Speak slowly." },
+  { id: "A1", label: "Beginner", guidance: "Use only the most common words and very short sentences of a few words. Speak slowly, one simple idea at a time. Avoid idioms, slang, and rare vocabulary." },
   { id: "A2", label: "Elementary", guidance: "Use simple everyday vocabulary and short connected sentences." },
   { id: "B1", label: "Intermediate", guidance: "Use common vocabulary and natural sentences at a relaxed pace." },
   { id: "B2", label: "Upper-Intermediate", guidance: "Use varied vocabulary and idioms at a near-natural pace." },
@@ -30,6 +30,6 @@ export const PROFICIENCY_LEVELS = [
 
 const LEVEL_BY_ID = new Map(PROFICIENCY_LEVELS.map((level) => [level.id, level]));
 
-export const DEFAULT_LEVEL_ID = "A2";
+export const DEFAULT_LEVEL_ID = "A1";
 
 export const getLevel = (id) => LEVEL_BY_ID.get(id) || LEVEL_BY_ID.get(DEFAULT_LEVEL_ID);
