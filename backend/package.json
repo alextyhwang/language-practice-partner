@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Backend for Language Practice Partner: owns the OpenAI Realtime voice session and the coaching domain (languages, modes, scenarios, correction + scoring tools).",
+  "description": "Backend for Language Practice Partner: owns the OpenAI Realtime voice session and the coaching domain (languages, difficulty levels, scenarios, correction + scoring + goal tools).",
   "engines": {
     "node": ">=20"
   },

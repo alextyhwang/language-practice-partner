@@ -4,6 +4,7 @@
 
 export const CORRECTION_TOOL_NAME = "record_correction";
 export const SCORE_TOOL_NAME = "score_turn";
+export const GOAL_TOOL_NAME = "goal_reached";
 
 export const COACHING_TOOLS = [
   {
@@ -79,6 +80,27 @@ export const COACHING_TOOLS = [
       required: ["scope", "pronunciation", "grammar", "vocabulary", "fluency", "goalProgress"],
     },
   },
+  {
+    type: "function",
+    name: GOAL_TOOL_NAME,
+    description:
+      "Call this the MOMENT the learner has genuinely convinced you and the mission goal is truly met — and not a moment before. You are playing a character who does not give in easily, so only fire this once the learner has actually earned it. Never mention this tool or the goal to the learner.",
+    parameters: {
+      type: "object",
+      properties: {
+        summary: {
+          type: "string",
+          description: "One short sentence, in the learner's base language, on how they convinced you / achieved the goal.",
+        },
+        winningLine: {
+          type: "string",
+          description: "The specific thing the learner said that tipped you over, quoted in the target language.",
+        },
+      },
+      required: ["summary"],
+    },
+  },
 ];
 
-export const isCoachingTool = (name) => name === CORRECTION_TOOL_NAME || name === SCORE_TOOL_NAME;
+export const isCoachingTool = (name) =>
+  name === CORRECTION_TOOL_NAME || name === SCORE_TOOL_NAME || name === GOAL_TOOL_NAME;
