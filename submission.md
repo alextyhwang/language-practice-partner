@@ -10,6 +10,10 @@ Lingo is a guided speaking coach for real-world language practice. Instead of op
 The repo is here, you can take a look. We are using `gpt-realtime-2` for the voice model. The project was made completely using cursor glass, using a mix of `opus-4.8` and `composer-2.5`
 Video: 
 
+![Screenshot](https://media.discordapp.net/attachments/520408513760198657/1514829907186815186/image.png?ex=6a2ccaca&is=6a2b794a&hm=b5cc36757ef39795f2b612420521d586492f8fc1c8bb9e2aa5128bbed3a5b520&=&format=webp&quality=lossless&width=1694&height=1738)
+
+
+
 ## Team Members
 
 - Arjun Nanduri
