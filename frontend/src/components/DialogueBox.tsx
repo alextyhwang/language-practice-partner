@@ -19,9 +19,13 @@ export function DialogueBox({
   partnerSpeaking,
   isEmpty,
 }: Props) {
+  const hasText = text.trim().length > 0;
   const showPrompt = phase === "idle" && !partnerSpeaking && !isEmpty;
-  const showTyping = partnerSpeaking;
-  const showProcessing = phase === "processing";
+  // Only show the "…speaks" placeholder while we're waiting for the very first
+  // token. Once text is streaming in, render it live so the learner can read
+  // along with the audio.
+  const showTyping = partnerSpeaking && !hasText;
+  const showProcessing = phase === "processing" && !hasText;
 
   return (
     <div className="jrpg-dialogue relative mx-3 mb-1 px-4 py-3 sm:mx-4">
@@ -49,11 +53,16 @@ export function DialogueBox({
           </div>
         ) : showProcessing ? (
           <p className="font-rpg text-fire-bright">Processing response...</p>
-        ) : isEmpty ? (
+        ) : isEmpty || !hasText ? (
           <p className="font-rpg text-cream-dim italic">The encounter begins...</p>
         ) : (
           <>
-            <p className="font-rpg text-lg leading-relaxed text-cream">{text}</p>
+            <p className="font-rpg text-lg leading-relaxed text-cream">
+              {text}
+              {partnerSpeaking && (
+                <span className="ml-1 inline-block h-4 w-2 translate-y-0.5 bg-cream animate-blink" />
+              )}
+            </p>
             {translation && (
               <p className="mt-2 border-t border-dashed border-white/20 pt-2 font-rpg-sm text-cream-dim">
                 {translation}

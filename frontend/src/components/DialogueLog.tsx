@@ -35,6 +35,9 @@ export function DialogueLog({ transcript, npcName }: Props) {
                 {turn.speaker === "user" ? "YOU" : npcName}:
               </span>
               <p className="font-rpg-sm text-cream-dim">{turn.text}</p>
+              {turn.translation && (
+                <p className="font-rpg-sm text-cream-dim/60 italic">{turn.translation}</p>
+              )}
             </div>
           ))}
         </div>
