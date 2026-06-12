@@ -11,5 +11,5 @@ Video:
 
 - Arjun Nanduri
 - Alex Wang
-- Matthew Rodriguez
+- Matthew Rodrigues
 - Scott Sahai
