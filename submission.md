@@ -16,3 +16,4 @@ Video:
 - Alex Wang
 - Matthew Rodrigues
 - Scott Sahai
+- Shaya Stark
