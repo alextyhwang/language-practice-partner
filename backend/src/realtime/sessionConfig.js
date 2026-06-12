@@ -30,7 +30,7 @@ export const buildSessionUpdate = (context, options = {}) => {
     session: {
       type: "realtime",
       model: config.model,
-      output_modalities: ["audio", "text"],
+      output_modalities: ["audio"],
       instructions: buildInstructions(context),
       reasoning: { effort: reasoningEffort },
       tools: COACHING_TOOLS,
