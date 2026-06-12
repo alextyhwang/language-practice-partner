@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 300" width="200" height="300">
+  <title>Sam - friendly local, asking for directions</title>
+  <ellipse cx="100" cy="294" rx="42" ry="7" fill="#00000025"/>
+  <rect x="54" y="248" width="34" height="38" rx="10" fill="#1565C0"/>
+  <rect x="112" y="248" width="34" height="38" rx="10" fill="#1565C0"/>
+  <rect x="48" y="262" width="44" height="22" rx="11" fill="#37474F"/>
+  <rect x="108" y="262" width="44" height="22" rx="11" fill="#37474F"/>
+  <rect x="38" y="148" width="124" height="108" rx="26" fill="#FB8C00"/>
+  <rect x="38" y="148" width="124" height="14" rx="7" fill="#EF6C00"/>
+  <rect x="74" y="148" width="52" height="108" rx="6" fill="#FFB74D"/>
+  <text x="100" y="195" text-anchor="middle" font-family="Arial,sans-serif" font-size="30" font-weight="900" fill="#E65100">!</text>
+  <rect x="6" y="152" width="38" height="24" rx="12" fill="#FB8C00"/>
+  <rect x="150" y="96" width="44" height="24" rx="12" fill="#FB8C00" transform="rotate(-42 172 108)"/>
+  <ellipse cx="14" cy="180" rx="14" ry="12" fill="#FFCC80"/>
+  <g transform="translate(182,82) rotate(-35)">
+    <ellipse cx="0" cy="0" rx="13" ry="11" fill="#FFCC80"/>
+    <rect x="-4" y="-26" width="8" height="22" rx="4" fill="#FFCC80"/>
+    <rect x="-12" y="-8" width="8" height="14" rx="4" fill="#FFCC80"/>
+    <rect x="4" y="-8" width="8" height="14" rx="4" fill="#FFCC80"/>
+  </g>
+  <ellipse cx="100" cy="148" rx="34" ry="17" fill="#FFCC80"/>
+  <ellipse cx="100" cy="106" rx="50" ry="48" fill="#FFCC80"/>
+  <path d="M52 98 Q50 62 100 60 Q150 62 148 98 Q150 76 100 74 Q50 76 52 98" fill="#212121"/>
+  <rect x="60" y="92" width="80" height="6" rx="3" fill="#212121"/>
+  <circle cx="83" cy="110" r="8" fill="#1A1A1A"/>
+  <circle cx="117" cy="110" r="8" fill="#1A1A1A"/>
+  <circle cx="86" cy="107" r="3" fill="white"/>
+  <circle cx="120" cy="107" r="3" fill="white"/>
+  <ellipse cx="70" cy="124" rx="10" ry="6" fill="#FFAB91" opacity="0.6"/>
+  <ellipse cx="130" cy="124" rx="10" ry="6" fill="#FFAB91" opacity="0.6"/>
+  <path d="M84 128 Q100 142 116 128" stroke="#8D6E63" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M88 130 Q100 139 112 130" fill="white"/>
+  <text x="100" y="299" text-anchor="middle" font-family="Arial Rounded MT Bold,Arial,sans-serif" font-size="14" font-weight="700" fill="#E65100">Sam · Local</text>
+</svg>

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 300" width="200" height="300">
+  <title>Mr. Reed - interviewer, part-time job interview</title>
+  <ellipse cx="100" cy="294" rx="42" ry="7" fill="#00000025"/>
+  <rect x="54" y="248" width="34" height="38" rx="10" fill="#212121"/>
+  <rect x="112" y="248" width="34" height="38" rx="10" fill="#212121"/>
+  <rect x="48" y="262" width="44" height="22" rx="11" fill="#1A1A1A"/>
+  <rect x="108" y="262" width="44" height="22" rx="11" fill="#1A1A1A"/>
+  <rect x="38" y="148" width="124" height="108" rx="26" fill="#37474F"/>
+  <polygon points="62,148 100,200 138,148" fill="#ECEFF1"/>
+  <polygon points="78,148 100,182 122,148" fill="#37474F"/>
+  <path d="M92 148 L108 148 L104 178 L100 184 L96 178 Z" fill="#B71C1C"/>
+  <rect x="6" y="152" width="38" height="24" rx="12" fill="#37474F"/>
+  <rect x="156" y="130" width="38" height="24" rx="12" fill="#37474F" transform="rotate(-18 175 142)"/>
+  <ellipse cx="14" cy="180" rx="14" ry="12" fill="#D7A06A"/>
+  <g transform="translate(184,116) rotate(-12)">
+    <ellipse cx="0" cy="0" rx="13" ry="11" fill="#D7A06A"/>
+    <rect x="-16" y="-6" width="14" height="20" rx="2" fill="#FFFFFF"/>
+    <line x1="-13" y1="0" x2="-5" y2="0" stroke="#90A4AE" stroke-width="1.5"/>
+    <line x1="-13" y1="4" x2="-5" y2="4" stroke="#90A4AE" stroke-width="1.5"/>
+    <line x1="-13" y1="8" x2="-7" y2="8" stroke="#90A4AE" stroke-width="1.5"/>
+  </g>
+  <ellipse cx="100" cy="148" rx="34" ry="17" fill="#D7A06A"/>
+  <ellipse cx="100" cy="106" rx="50" ry="48" fill="#D7A06A"/>
+  <path d="M54 92 Q58 62 100 60 Q142 62 146 92 Q138 78 100 76 Q62 78 54 92" fill="#9E9E9E"/>
+  <path d="M52 92 Q50 102 54 108 L62 104 Q58 96 60 90 Z" fill="#BDBDBD"/>
+  <path d="M148 92 Q150 102 146 108 L138 104 Q142 96 140 90 Z" fill="#BDBDBD"/>
+  <rect x="68" y="106" width="26" height="18" rx="9" fill="none" stroke="#37474F" stroke-width="2.5"/>
+  <rect x="106" y="106" width="26" height="18" rx="9" fill="none" stroke="#37474F" stroke-width="2.5"/>
+  <line x1="94" y1="113" x2="106" y2="113" stroke="#37474F" stroke-width="2.5"/>
+  <circle cx="81" cy="115" r="6" fill="#1A1A1A"/>
+  <circle cx="119" cy="115" r="6" fill="#1A1A1A"/>
+  <circle cx="83" cy="113" r="2" fill="white"/>
+  <circle cx="121" cy="113" r="2" fill="white"/>
+  <path d="M74 98 Q82 94 90 98" stroke="#757575" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M110 98 Q118 94 126 98" stroke="#757575" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M88 132 Q100 138 112 132" stroke="#8D6E63" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M82 130 Q100 126 118 130" stroke="#9E9E9E" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <text x="100" y="299" text-anchor="middle" font-family="Arial Rounded MT Bold,Arial,sans-serif" font-size="13" font-weight="700" fill="#37474F">Mr. Reed · Interviewer</text>
+</svg>
